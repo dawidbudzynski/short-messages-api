@@ -8,4 +8,5 @@ services:
 before_script: pip install docker-compose
 
 script:
-  - docker-compose run app sh -c "python manage.py collectstatic && python manage.py test"
+  - docker-compose run app sh -c "python manage.py collectstatic --noinput"
+  - docker-compose run app sh -c "python manage.py test"
