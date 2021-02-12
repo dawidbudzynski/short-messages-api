@@ -23,6 +23,9 @@ RUN pip install -r requirements.txt
 # copy project
 COPY . .
 
+# Fixing permission denied for Travis when runing collectstatic
+RUN chmod -R 755 /app/staticfiles
+
 # collect static files
 RUN python manage.py collectstatic --noinput
 
