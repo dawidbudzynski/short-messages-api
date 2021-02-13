@@ -61,3 +61,5 @@ class DeleteMessageView(generics.DestroyAPIView):
 
 class HomePage(ListView):
     model = Message
+
+    ordering = ['id']
