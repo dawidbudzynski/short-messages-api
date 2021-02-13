@@ -10,13 +10,16 @@ from message.serializers import MessageDetailSerializer
 MESSAGES_LIST_URL = reverse('message:list')
 MESSAGES_CREATE_URL = reverse('message:create')
 MESSAGES_UPDATE_URL = reverse('message:update', args=[1])
-MESSAGES_DELETE_URL = reverse('message:delete', args=[1])
 
 
 class PublicMessagesApiTests(TestCase):
     """Test publicly available message API"""
 
     def setUp(self):
+        self.user = get_user_model().objects.create_user(
+            'testuser@mail.com',
+            'password123'
+        )
         self.client = APIClient()
 
     def test_create_login_required(self):
@@ -31,7 +34,14 @@ class PublicMessagesApiTests(TestCase):
 
     def test_delete_login_required(self):
         """Test that login is required for deleting messages"""
-        res = self.client.delete(MESSAGES_DELETE_URL)
+
+        # creating message which can be later deleted, and logging out
+        self.client.force_authenticate(self.user)
+        new_message = Message.objects.create(user=self.user, content='Message 1')
+        self.client.logout()
+
+        message_delete_url = reverse('message:delete', args=[new_message.id])
+        res = self.client.delete(message_delete_url)
         self.assertEqual(res.status_code, status.HTTP_401_UNAUTHORIZED)
 
 

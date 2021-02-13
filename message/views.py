@@ -56,6 +56,8 @@ class UpdateMessageView(generics.UpdateAPIView):
 class DeleteMessageView(generics.DestroyAPIView):
     """Deletes selected message"""
     serializer_class = serializers.MessageSerializer
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
     queryset = Message.objects.all()
 
 
