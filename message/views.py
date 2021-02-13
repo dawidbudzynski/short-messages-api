@@ -1,3 +1,4 @@
+from django.views.generic.list import ListView
 from rest_framework import generics
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
@@ -27,8 +28,6 @@ class CreateMessageView(generics.CreateAPIView):
 class DetailsMessageView(generics.RetrieveAPIView):
     """Displays selected message"""
     serializer_class = serializers.MessageDetailSerializer
-    authentication_classes = (TokenAuthentication,)
-    permission_classes = (IsAuthenticated,)
     queryset = Message.objects.all()
 
     def retrieve(self, request, *args, **kwargs):
@@ -58,3 +57,7 @@ class DeleteMessageView(generics.DestroyAPIView):
     """Deletes selected message"""
     serializer_class = serializers.MessageSerializer
     queryset = Message.objects.all()
+
+
+class HomePage(ListView):
+    model = Message
