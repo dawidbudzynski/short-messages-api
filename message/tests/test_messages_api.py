@@ -9,7 +9,6 @@ from message.serializers import MessageDetailSerializer
 
 MESSAGES_LIST_URL = reverse('message:list')
 MESSAGES_CREATE_URL = reverse('message:create')
-MESSAGES_UPDATE_URL = reverse('message:update', args=[1])
 
 
 class PublicMessagesApiTests(TestCase):
@@ -29,7 +28,7 @@ class PublicMessagesApiTests(TestCase):
 
     def test_update_login_required(self):
         """Test that login is required for updating messages"""
-        res = self.client.put(MESSAGES_UPDATE_URL)
+        res = self.client.put(reverse('message:update', args=[1]))
         self.assertEqual(res.status_code, status.HTTP_401_UNAUTHORIZED)
 
     def test_delete_login_required(self):
@@ -84,3 +83,54 @@ class PrivateMessagesApiTests(TestCase):
         res = self.client.post(MESSAGES_CREATE_URL, payload)
 
         self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_details_view_counter(self):
+        """Test details and view counter"""
+        payload_1 = {'content': 'Message 5'}
+        self.client.post(MESSAGES_CREATE_URL, payload_1)
+        selected_message = Message.objects.get(
+            user=self.user,
+            content=payload_1['content']
+        )
+        self.assertEqual(selected_message.views, 0)
+
+        self.client.get(reverse('message:details', args=[selected_message.id]))
+        self.assertEqual(Message.objects.get(id=selected_message.id).views, 1)
+
+        self.client.get(reverse('message:details', args=[selected_message.id]))
+        self.assertEqual(Message.objects.get(id=selected_message.id).views, 2)
+
+    def test_update_message_successful(self):
+        """Test updating message and reseting views counter"""
+        payload_1 = {'content': 'Message 5'}
+        self.client.post(MESSAGES_CREATE_URL, payload_1)
+        selected_message = Message.objects.get(
+            user=self.user,
+            content=payload_1['content']
+        )
+
+        # setting views counter to 10
+        selected_message.views = 10
+        selected_message.save()
+        self.assertEqual(selected_message.views, 10)
+
+        payload_2 = {'content': 'Message New'}
+        res = self.client.put(
+            reverse('message:update', args=[selected_message.id]),
+            payload_2
+        )
+        updated_message = Message.objects.get(id=selected_message.id)
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        self.assertEqual(updated_message.content, payload_2['content'])
+        self.assertEqual(updated_message.views, 0)
+
+    def test_delete_message_successful(self):
+        """Test deleting message"""
+
+        # creating message which can be later deleted, and logging out
+        new_message = Message.objects.create(user=self.user, content='Message 1')
+
+        message_delete_url = reverse('message:delete', args=[new_message.id])
+        res = self.client.delete(message_delete_url)
+        self.assertEqual(res.status_code, status.HTTP_204_NO_CONTENT)
