@@ -40,43 +40,43 @@ docker-compose up
   POST </br>
   https://short-messages-api.herokuapp.com/api/v1/user/create/
 
-![alt text](https://raw.githubusercontent.com/dawidbudzynski/short-messages-api/main/demo_images/create_user.png)
+![Create user image](https://raw.githubusercontent.com/dawidbudzynski/short-messages-api/main/demo_images/create_user.png)
 
 * Request token </br>
   POST </br>
   https://short-messages-api.herokuapp.com/api/v1/user/token/
 
-![alt text](https://raw.githubusercontentcom/dawidbudzynski/short-messages-api/main/demo_image/request_token.png)
+![Request token image](https://raw.githubusercontentcom/dawidbudzynski/short-messages-api/main/demo_image/request_token.png)
 
 * Message list </br>
   GET </br>
   https://short-messages-api.herokuapp.com/api/v1/message/list/
 
-![alt text](https://raw.githubusercontent.com/dawidbudzynski/short-messages-api/main/demo_images/list_messages.png)
+![Message list image](https://raw.githubusercontent.com/dawidbudzynski/short-messages-api/main/demo_images/list_messages.png)
 
 * Message details </br>
   GET </br>
   https://short-messages-api.herokuapp.com/api/v1/message/details/4 <message_id>
 
-![alt text](https://raw.githubusercontent.com/dawidbudzynski/short-messages-api/main/demo_images/details_message.png)
+![Message detail image](https://raw.githubusercontent.com/dawidbudzynski/short-messages-api/main/demo_images/details_message.png)
 
 * Create message (require authorizations) </br>
   POST </br>
   https://short-messages-api.herokuapp.com/api/v1/message/create/
 
-![alt text](https://raw.githubusercontent.com/dawidbudzynski/short-messages-api/main/demo_images/create_message.png)
+![Create message image](https://raw.githubusercontent.com/dawidbudzynski/short-messages-api/main/demo_images/create_message.png)
 
 * Update message (require authorizations) </br>
   PUT </br>
   https://short-messages-api.herokuapp.com/api/v1/message/update/4 <message_id>
 
-![alt text](https://raw.githubusercontent.com/dawidbudzynski/short-messages-api/main/demo_images/update_message.png)
+![Update message image](https://raw.githubusercontent.com/dawidbudzynski/short-messages-api/main/demo_images/update_message.png)
 
 * Delete message (require authorizations) </br>
   DELETE </br>
   https://short-messages-api.herokuapp.com/api/v1/message/delete/4 <message_id>
 
-![alt text](https://raw.githubusercontent.com/dawidbudzynski/short-messages-api/main/demo_images/delete_message.png)
+![Delete message image](https://raw.githubusercontent.com/dawidbudzynski/short-messages-api/main/demo_images/delete_message.png)
 
 ## Authorization
 
@@ -86,7 +86,7 @@ To use endpoints which require authorization, token must be added to request hea
 2. Request token https://short-messages-api.herokuapp.com/api/v1/user/token/
 3. Add `Token <generated_token>` as 'Authorization' header
    
-![alt text](https://raw.githubusercontent.com/dawidbudzynski/short-messages-api/main/demo_images/add_token_header.png)
+![Add token image](https://raw.githubusercontent.com/dawidbudzynski/short-messages-api/main/demo_images/add_token_header.png)
 
 ## Heroku deployment
 
