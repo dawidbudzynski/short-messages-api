@@ -5,7 +5,7 @@
 ## General info
 
 A web application made using Python 3, Django 2, Django Rest Framework and PostgreSQL.  
-<br/>Application allows creating users, generate tokens and perform CRUD operations on Message model.
+<br/>Application allows creating users, generating tokens and performing CRUD operations on Message model.
 
 ## Main functions
 
@@ -36,7 +36,7 @@ docker-compose up
 
 ## Endpoints
 
-* Crete user </br>
+* Create user </br>
   POST </br>
   https://short-messages-api.herokuapp.com/api/v1/user/create/
 
@@ -46,7 +46,7 @@ docker-compose up
   POST </br>
   https://short-messages-api.herokuapp.com/api/v1/user/token/
 
-![alt text](https://raw.githubusercontent.com/dawidbudzynski/short-messages-api/main/demo_images/request_token.png)
+![alt text](https://raw.githubusercontentcom/dawidbudzynski/short-messages-api/main/demo_image/request_token.png)
 
 * Message list </br>
   GET </br>
@@ -56,7 +56,7 @@ docker-compose up
 
 * Message details </br>
   GET </br>
-  https://short-messages-api.herokuapp.com/api/v1/message/details/<message_id>
+  https://short-messages-api.herokuapp.com/api/v1/message/details/4 <message_id>
 
 ![alt text](https://raw.githubusercontent.com/dawidbudzynski/short-messages-api/main/demo_images/details_message.png)
 
@@ -68,13 +68,13 @@ docker-compose up
 
 * Update message (require authorizations) </br>
   PUT </br>
-  https://short-messages-api.herokuapp.com/api/v1/message/update/<message_id>
+  https://short-messages-api.herokuapp.com/api/v1/message/update/4 <message_id>
 
 ![alt text](https://raw.githubusercontent.com/dawidbudzynski/short-messages-api/main/demo_images/update_message.png)
 
 * Delete message (require authorizations) </br>
   DELETE </br>
-  https://short-messages-api.herokuapp.com/api/v1/message/delete/<message_id>
+  https://short-messages-api.herokuapp.com/api/v1/message/delete/4 <message_id>
 
 ![alt text](https://raw.githubusercontent.com/dawidbudzynski/short-messages-api/main/demo_images/delete_message.png)
 
@@ -85,14 +85,15 @@ To use endpoints which require authorization, token must be added to request hea
 1. Create new user https://short-messages-api.herokuapp.com/api/v1/user/create/
 2. Request token https://short-messages-api.herokuapp.com/api/v1/user/token/
 3. Add `Token <generated_token>` as 'Authorization' header
-   ![alt text](https://raw.githubusercontent.com/dawidbudzynski/short-messages-api/main/demo_images/add_token_header.png)
+   
+![alt text](https://raw.githubusercontent.com/dawidbudzynski/short-messages-api/main/demo_images/add_token_header.png)
 
 ## Heroku deployment
 
 To deploy application to Heroku:
 
 1. Sign up to Heroku account and install Heroku CLI https://devcenter.heroku.com/articles/heroku-cli
-2. In Heroku dashboard crete new application
+2. In Heroku dashboard create new application
 3. In CLI connect to remote of your application
 
 ```
@@ -111,13 +112,13 @@ heroku container:login
 docker build -t registry.heroku.com/<your-application-name>/web .
 ```
 
-6. Push your secret key to Heroku
+6. Push your secret key
 
 ```
 heroku config:set SECRET_KEY=SOME_SECRET_VALUE -a <your-application-name>
 ```
 
-7. Create and connect PostgreSQL on Heroku
+7. Create and connect PostgreSQL
 
 ```
 heroku addons:create heroku-postgresql:hobby-dev -a <your-application-name>
